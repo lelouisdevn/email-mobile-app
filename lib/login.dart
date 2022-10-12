@@ -64,15 +64,14 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: ElevatedButton(
-                      onPressed: () {
-                        showDialog(context: context, builder: (context){
-                          return AlertDialog(content: Text(myController.text),);
-                        });
-                      },
-                      child: Container(
-                        width: 200,
-                        child: const Icon(Icons.check),
-                      )),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed('/all-emails');
+                    },
+                    child: Container(
+                      width: 200,
+                      child: const Icon(Icons.check),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
