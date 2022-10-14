@@ -1,3 +1,4 @@
+import 'package:atlanteans_email/app_drawer.dart';
 import 'package:atlanteans_email/email_item_card.dart';
 import 'package:flutter/material.dart';
 // import 'package:atlanteans_email/email.dart';
@@ -18,17 +19,18 @@ class _EmailItemState extends State<EmailItem> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AppDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        leading: const FittedBox(
-          fit: BoxFit.scaleDown,
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            backgroundImage: AssetImage("assets/images/logo.png"),
-          ),
+        leading: Builder(
+          builder: (context) => // Ensure Scaffold is in context
+              IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer()),
         ),
         title: const Text("Inbox"),
         actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.search),

@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                   obscuringCharacter: '•',
                   decoration: const InputDecoration(
-                      icon: Icon(Icons.email_outlined),
+                      icon: Icon(Icons.password_outlined),
                       labelText: "Password",
                       hintText: "Enter your password"),
                 ),
