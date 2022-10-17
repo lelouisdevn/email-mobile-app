@@ -19,39 +19,39 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.mark_email_unread_outlined, size: 35.0,),
-            title: const Text("Inbox", style: TextStyle(fontSize: 18),),
+            leading: const Icon(Icons.inbox, size: 32.0,),
+            title: const Text("Inbox", style: TextStyle(fontSize: 16),),
             onTap: () {
               Navigator.of(context).pushReplacementNamed("/all-emails");
             },
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.mark_email_read_outlined, size: 35.0,),
-            title: const Text("Sent", style: TextStyle(fontSize: 18),),
+            leading: const Icon(Icons.send, size: 32.0,),
+            title: const Text("Sent", style: TextStyle(fontSize: 16),),
             onTap: () {},
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.edit, size: 35.0,),
-            title: const Text("Compose", style: TextStyle(fontSize: 18),),
+            leading: const Icon(Icons.edit, size: 32.0,),
+            title: const Text("Compose", style: TextStyle(fontSize: 16),),
             onTap: () {},
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.search_outlined, size: 35.0,),
-            title: const Text("Filter", style: TextStyle(fontSize: 18),),
+            leading: const Icon(Icons.search_outlined, size: 32.0,),
+            title: const Text("Filter", style: TextStyle(fontSize: 16),),
             onTap: () {},
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.auto_delete_outlined, size: 35.0,),
-            title: const Text("Trash bin", style: TextStyle(fontSize: 18),),
+            leading: const Icon(Icons.auto_delete_outlined, size: 32.0,),
+            title: const Text("Trash bin", style: TextStyle(fontSize: 16),),
             onTap: () {},
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.settings, size: 35.0,),
+            leading: const Icon(Icons.settings, size: 32.0,),
             title: const Text("thaingo1202@outlook.com",  style: TextStyle(fontSize: 16)),
             subtitle: const Text("Log out"),
             onTap: () {

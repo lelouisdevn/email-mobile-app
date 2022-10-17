@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:atlanteans_email/email.dart';
+import '../../models/email.dart';
 
 class EmailItemCard extends StatefulWidget {
   final Email email;
@@ -16,7 +16,8 @@ class _EmailItemCardState extends State<EmailItemCard> {
       child: ListTile(
         tileColor: Colors.grey.shade200,
         leading: const CircleAvatar(
-            backgroundImage: AssetImage('assets/images/logo.png')),
+          backgroundImage: AssetImage('assets/images/logo.png'),
+        ),
         title: Text(widget.email.subject),
         subtitle: Text(
           widget.email.content,

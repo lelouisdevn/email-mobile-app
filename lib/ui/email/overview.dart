@@ -1,8 +1,8 @@
-import 'package:atlanteans_email/app_drawer.dart';
-import 'package:atlanteans_email/email_item_card.dart';
+import '../../shared/app_drawer.dart';
+import '../email/email_item_card.dart';
 import 'package:flutter/material.dart';
 // import 'package:atlanteans_email/email.dart';
-import 'package:atlanteans_email/email_manager.dart';
+import 'email_manager.dart';
 
 //emails screen
 class EmailItem extends StatefulWidget {
@@ -25,12 +25,16 @@ class _EmailItemState extends State<EmailItem> {
         leading: Builder(
           builder: (context) => // Ensure Scaffold is in context
               IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer()),
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
         ),
         title: const Text("Inbox"),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.edit),
+          ),
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.search),
@@ -41,28 +45,37 @@ class _EmailItemState extends State<EmailItem> {
           ),
         ],
       ),
-      body: ListView.builder(
-          itemCount: emails.emailCount,
-          itemBuilder: (context, index) {
-            return Dismissible(
-              background: Container(
-                padding: const EdgeInsets.only(right: 20),
-                color: Colors.red,
-                alignment: Alignment.centerRight,
-                child: const Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-              direction: DismissDirection.endToStart,
-              key: ValueKey(emails.emails[index]),
-              confirmDismiss: ((direction) {
-                return showComfirmDialogue(context, 'Remove this email?');
-              }),
-              child: EmailItemCard(emails.emails[index]),
-            );
-          }),
+      body: buildListView(),
+    );
+  }
+
+  Widget buildDissmissible(index) {
+    return Dismissible(
+      background: Container(
+        padding: const EdgeInsets.only(right: 20),
+        color: Colors.red,
+        alignment: Alignment.centerRight,
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white,
+          size: 30,
+        ),
+      ),
+      direction: DismissDirection.endToStart,
+      key: ValueKey(emails.emails[index]),
+      confirmDismiss: ((direction) {
+        return showComfirmDialogue(context, 'Remove this email?');
+      }),
+      child: EmailItemCard(emails.emails[index]),
+    );
+  }
+
+  Widget buildListView() {
+    return ListView.builder(
+      itemCount: emails.emailCount,
+      itemBuilder: (context, index) {
+        return buildDissmissible(index);
+      },
     );
   }
 
@@ -83,7 +96,7 @@ class _EmailItemState extends State<EmailItem> {
               Navigator.of(context).pop(true);
             },
             child: const Text('Yes'),
-          )
+          ),
         ],
       ),
     );

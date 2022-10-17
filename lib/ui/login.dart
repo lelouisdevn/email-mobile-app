@@ -1,3 +1,4 @@
+import '../ui/user/userManager.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -8,7 +9,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final myController = TextEditingController();
+  final emailController = TextEditingController();
+  final pwdController = TextEditingController();
+  final user = UserManager();
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +51,15 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 TextFormField(
-                  controller: myController,
+                  controller: emailController,
                   decoration: const InputDecoration(
                       icon: Icon(Icons.people),
-                      labelText: "Username",
-                      hintText: "Enter your username"),
+                      labelText: "Email",
+                      hintText: "Enter your email"),
                 ),
                 TextFormField(
                   obscureText: true,
+                  controller: pwdController,
                   obscuringCharacter: '•',
                   decoration: const InputDecoration(
                       icon: Icon(Icons.password_outlined),
@@ -65,7 +70,15 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.all(20.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushReplacementNamed('/all-emails');
+                      setState(
+                        () {
+                          String isLoggedIn = user.logIn(
+                              emailController.text, pwdController.text);
+                          if (isLoggedIn != "false") {
+                            Navigator.of(context).pushReplacementNamed("/all-emails");
+                          }
+                        },
+                      );
                     },
                     child: Container(
                       width: 200,
