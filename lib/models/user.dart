@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class User {
   final String? id;
-  final String userID;
-  final String mailAddr;
-  final String password;
+  String userID;
+  String mailAddr;
+  String password;
 
   User({
     this.id,
@@ -12,4 +12,8 @@ class User {
     required this.mailAddr,
     required this.password,
   });
+
+  login(String userID) {
+    userID = userID;
+  }
 }

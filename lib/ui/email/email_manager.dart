@@ -13,11 +13,16 @@ class EmailManager with ChangeNotifier {
         userID: "1910295",
         sentFrom: "thaingo1202@outlook.com",
         content: "Don xin gia nhap",
-        subject: "Chao ban"),
+        subject: "Chao ban Chao banChao banChao banChao ban"),
     Email(
         userID: "1910296",
         sentFrom: "thic@student.com",
         content: "Don xin nghi hoc",
+        subject: "Nghi hoc"),
+    Email(
+        userID: "1910295",
+        sentFrom: "thic@student.com",
+        content: "Test",
         subject: "Nghi hoc"),
   ];
   int get emailCount {
@@ -26,5 +31,17 @@ class EmailManager with ChangeNotifier {
 
   List get emails {
     return [..._emails];
+    
+  }
+
+  int getEmails(String userID, int index) {
+    if (_emails[index].userID == userID) {
+      return 1;
+    }
+    return 0;
+  }
+
+  Email findById(String id) {
+    return _emails.firstWhere((element) => element.id == id);
   }
 }

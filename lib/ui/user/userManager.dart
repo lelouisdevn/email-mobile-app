@@ -5,7 +5,8 @@ class UserManager with ChangeNotifier {
   final List _users = [
     User(
         userID: "1910295",
-        mailAddr: "thaiB1910295@student.com",
+        // mailAddr: "thaiB1910295@student.com",
+        mailAddr: "123",
         password: "12345"
     ),
     User(
@@ -23,6 +24,9 @@ class UserManager with ChangeNotifier {
     return [..._users];
   }
 
+  
+  // return userID if log-in information is valid
+  // return 'false' if it's wrong.
   String logIn(email, password) {
     String state = "false";
     for (var e in _users) {
@@ -32,4 +36,6 @@ class UserManager with ChangeNotifier {
     }
     return state;
   }
+
+  
 }

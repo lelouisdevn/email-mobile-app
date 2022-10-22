@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
+// import '../ui/user/userManager.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<User>();
     return Drawer(
       child: Column(
         children: [
@@ -52,7 +57,7 @@ class AppDrawer extends StatelessWidget {
           const Divider(),
           ListTile(
             leading: const Icon(Icons.settings, size: 32.0,),
-            title: const Text("thaingo1202@outlook.com",  style: TextStyle(fontSize: 16)),
+            title: Text(user.mailAddr,  style: const TextStyle(fontSize: 16)),
             subtitle: const Text("Log out"),
             onTap: () {
               Navigator.of(context).pushReplacementNamed("/");

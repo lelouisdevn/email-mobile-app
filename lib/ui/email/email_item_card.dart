@@ -18,7 +18,11 @@ class _EmailItemCardState extends State<EmailItemCard> {
         leading: const CircleAvatar(
           backgroundImage: AssetImage('assets/images/logo.png'),
         ),
-        title: Text(widget.email.subject),
+        title: Text(
+          widget.email.subject,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
         subtitle: Text(
           widget.email.content,
           maxLines: 1,
