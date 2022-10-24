@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/email.dart';
+import 'dart:math' as math;
 
 class EmailItemCard extends StatefulWidget {
   final Email email;
@@ -12,11 +13,18 @@ class EmailItemCard extends StatefulWidget {
 class _EmailItemCardState extends State<EmailItemCard> {
   @override
   Widget build(BuildContext context) {
+    final userAvatar = widget.email.sentFrom.substring(0, 1).toUpperCase();
     return Card(
       child: ListTile(
         tileColor: Colors.grey.shade200,
-        leading: const CircleAvatar(
-          backgroundImage: AssetImage('assets/images/logo.png'),
+        leading: CircleAvatar(
+          // backgroundImage: AssetImage('assets/images/logo.png'),
+          backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+          child: Text(
+            userAvatar,
+            style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 22, color: Colors.white),
+            
+          ),
         ),
         title: Text(
           widget.email.subject,

@@ -13,11 +13,11 @@ class EmailManager with ChangeNotifier {
         userID: "1910295",
         sentFrom: "thaingo1202@outlook.com",
         content: "Don xin gia nhap",
-        subject: "Chao ban Chao banChao banChao banChao ban"),
+        subject: "Don xin gia han dong hoc phi"),
     Email(
         userID: "1910296",
         sentFrom: "thic@student.com",
-        content: "Don xin nghi hoc",
+        content: "Email has existed in some form since the 1970s, when programmer Ray Tomlinson created a way to transmit messages between computer systems on the Advanced Research Projects Agency Network (ARPANET). Modern forms of email became available for widespread public use with the development of email client software (e.g. Outlook) and web browsers, the latter of which enables users to send and receive messages over the Internet using web-based email clients (e.g. Gmail).",
         subject: "Nghi hoc"),
     Email(
         userID: "1910295",
