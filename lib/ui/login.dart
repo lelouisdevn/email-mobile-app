@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   controller: emailController,
                   decoration: const InputDecoration(
-                      icon: Icon(Icons.people),
+                      icon: Icon(Icons.email),
                       labelText: "Email",
                       hintText: "Enter your email"),
                 ),
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: pwdController,
                   obscuringCharacter: '•',
                   decoration: const InputDecoration(
-                      icon: Icon(Icons.password_outlined),
+                      icon: Icon(Icons.password),
                       labelText: "Password",
                       hintText: "Enter your password"),
                 ),

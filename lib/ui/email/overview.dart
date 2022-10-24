@@ -57,10 +57,6 @@ class _EmailItemState extends State<EmailItem> {
   Widget buildDissmissible(userID, index) {
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context).pushReplacementNamed(
-        //   '/email-detail',
-        //   arguments: index,
-        // );
         Navigator.of(context).push(MaterialPageRoute(
           builder: (ctx) => EmailDetailScreen(emails.emails[index]),
         ));
