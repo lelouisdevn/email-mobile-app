@@ -9,6 +9,7 @@ import 'ui/email/overview.dart';
 import 'ui/login.dart';
 import 'package:provider/provider.dart';
 import 'screen.dart';
+import 'ui/email/email_composition.dart';
 // import 'models/user.dart';
 
 void main() {
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         home: const LoginPage(),
+        // home: const EmailComposition(),
         routes: {
           EmailItem.routeName: (context) => const EmailItem(),
           // EmailDetailScreen.routeName: (context) => const EmailDetailScreen(email)

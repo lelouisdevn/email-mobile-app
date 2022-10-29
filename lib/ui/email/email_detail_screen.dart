@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:atlanteans_email/ui/email/email_composition.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/email.dart';
 import 'dart:math' as math;
 import '../../models/user.dart';
+import 'email_composition.dart';
 
 class EmailDetailScreen extends StatelessWidget {
   static const routeName = '/email-details';
@@ -29,18 +31,17 @@ class EmailDetailScreen extends StatelessWidget {
         ],
       ),
       body: Container(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                buildTitle(context),
-                buildEmailContentPart(context),
-                Divider(),
-                buildFooter(context),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              buildTitle(context),
+              buildEmailContentPart(context),
+              Divider(),
+              buildFooter(context),
+            ],
           ),
         ),
-
+      ),
     );
   }
 
@@ -63,7 +64,9 @@ class EmailDetailScreen extends StatelessWidget {
               child: Text(
                 userAvatar,
                 style: const TextStyle(
-                    fontWeight: FontWeight.w400, fontSize: 22, color: Colors.white),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 22,
+                    color: Colors.white),
               ),
             ),
             Padding(
@@ -72,23 +75,31 @@ class EmailDetailScreen extends StatelessWidget {
                 height: 40,
                 child: Stack(
                   children: [
-                    Text(
-                      "From: ${email.sentFrom}",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16),
+                    GestureDetector(
+                      onTap: () {
+                        // Navigator.of(context).pushReplacement(EmailComposition(email.sentFrom));
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) => EmailComposition(email.sentFrom),
+                        ));
+                      },
+                      child: Text(
+                        "From: ${email.sentFrom}",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 17),
-                      child: GestureDetector(
-                        onTap: () {
-                          // print("go to copose mail");
-                          Navigator.of(context).pushNamed("/all-emails");
-                        },
-                        child: Text(
-                          "To: ${user.mailAddr}",
-                          style: const TextStyle(fontSize: 15),
-                        ),
+                      // child: GestureDetector(
+                      //   onTap: () {
+                      //     // print("go to copose mail");
+                      //     Navigator.of(context).pushNamed("/all-emails");
+                      //   },
+                      child: Text(
+                        "To: ${email.sentTo}",
+                        style: const TextStyle(fontSize: 15),
                       ),
+                      // ),
                     ),
                   ],
                 ),
@@ -151,9 +162,7 @@ class EmailDetailScreen extends StatelessWidget {
               child: Text(
                 'Privacy Statement',
                 style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  color: Colors.blue
-                ),
+                    decoration: TextDecoration.underline, color: Colors.blue),
               ),
             ),
             Padding(

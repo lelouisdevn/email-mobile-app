@@ -5,8 +5,8 @@ class UserManager with ChangeNotifier {
   final List _users = [
     User(
         userID: "1910295",
-        // mailAddr: "thaiB1910295@student.com",
-        mailAddr: "123",
+        mailAddr: "thaiB1910295@student.com",
+        // mailAddr: "123",
         password: "12345"
     ),
     User(
