@@ -1,18 +1,55 @@
+import 'package:atlanteans_email/ui/email/email_manager.dart';
+import 'package:atlanteans_email/ui/user/userManager.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class EmailComposition extends StatelessWidget {
-  const EmailComposition(this.emailAddr, {super.key});
-  final String emailAddr;
+import 'package:provider/provider.dart';
+
+import '../../models/email.dart';
+import '../../models/user.dart';
+
+class EmailComposition extends StatefulWidget {
+  const EmailComposition({super.key});
+  // final String emailAddr;
+
+  static const routeName = "/email-composition";
+
+  @override
+  State<EmailComposition> createState() => _EmailCompositionState();
+}
+
+class _EmailCompositionState extends State<EmailComposition> {
+  final toController = TextEditingController();
+  final subjectController = TextEditingController();
+  final contentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final emailManager = context.watch<EmailManager>();
+
+    final user = context.read<User>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Compose"),
         actions: [
           IconButton(
             icon: Icon(Icons.send),
-            onPressed: () {},
+            onPressed: () {
+              
+                var email = Email(content: "", sentFrom: "", sentTo: "", subject: "");
+                // email.sentTo = toController.text;
+                // email.sentFrom = user.mailAddr;
+                email.sentFrom = toController.text;
+                email.sentTo = user.mailAddr;
+                email.subject = subjectController.text;
+                email.content = contentController.text;
+                print (email.content);
+
+                emailManager.addEmails(email);
+                Navigator.of(context).pushReplacementNamed("/all-emails");
+                
+                
+              
+            },
           ),
           IconButton(
             icon: Icon(Icons.more_vert),
@@ -25,7 +62,13 @@ class EmailComposition extends StatelessWidget {
   }
 
   Widget buildEmailCompositionScreen(BuildContext context) {
-    final userAvatar = emailAddr.substring(0, 1).toUpperCase();
+    // final userAvatar = widget.emailAddr.substring(0, 1).toUpperCase();
+    var userAvatar = "T";
+    // userAvatar = (toController.text).substring(0, 1).toUpperCase();
+    
+    // setState(() {
+    //   userAvatar = (toController.text).substring(0, 1).toUpperCase();
+    // });
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -56,13 +99,15 @@ class EmailComposition extends StatelessWidget {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * (80 / 100),
                   child: TextFormField(
-                    initialValue: emailAddr,
+                    controller: toController,
+                    // initialValue: widget.emailAddr,
+                    // initialValue: toController.text,
                     decoration: const InputDecoration(
                         // icon: Icon(Icons.password),
                         labelText: "Send to:",
                         prefixText: "To: ",
                         
-                        hintText: "Enter outgoing email address"),
+                        hintText: "Enter outgoing email address",),
                   ),
                 ),
               ),
@@ -71,6 +116,7 @@ class EmailComposition extends StatelessWidget {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * (80 / 100),
                   child: TextFormField(
+                    controller: subjectController,
                     decoration: const InputDecoration(
                         labelText: "Subject:",
                         // prefixText: "To: ",
@@ -82,9 +128,10 @@ class EmailComposition extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * (80 / 100),
-                  child: const TextField(
+                  child: TextField(
                     maxLines: 10,
-                    decoration: InputDecoration(
+                    controller: contentController,
+                    decoration: const InputDecoration(
                       labelText: "Message",
                     ),
                   ),

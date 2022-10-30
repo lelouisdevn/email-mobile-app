@@ -1,4 +1,5 @@
 import 'package:atlanteans_email/models/user.dart';
+import 'package:atlanteans_email/ui/email/email_composition.dart';
 import 'package:provider/provider.dart';
 
 import '../../shared/app_drawer.dart';
@@ -18,10 +19,11 @@ class EmailItem extends StatefulWidget {
 }
 
 class _EmailItemState extends State<EmailItem> {
-  final emails = EmailManager();
+  // final emails = EmailManager();
 
   @override
   Widget build(BuildContext context) {
+    final emails = context.read<EmailManager>();
     final user = context.read<User>();
     return Scaffold(
       drawer: const AppDrawer(),
@@ -37,7 +39,12 @@ class _EmailItemState extends State<EmailItem> {
         title: const Text("Inbox"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // Navigator.of(context).pushReplacementNamed("/email-composition");
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EmailComposition(),
+              ));
+            },
             icon: const Icon(Icons.edit),
           ),
           IconButton(
@@ -55,6 +62,8 @@ class _EmailItemState extends State<EmailItem> {
   }
 
   Widget buildDissmissible(userID, index) {
+    final emails = context.read<EmailManager>();
+    final user = context.read<User>();
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -78,7 +87,7 @@ class _EmailItemState extends State<EmailItem> {
             return showComfirmDialogue(context, 'Remove this email?');
           }),
           // child: EmailItemCard(emails.emails[index]),
-          child: emails.getEmails(userID, index) == 1
+          child: emails.getInboxEmails(user.mailAddr, index) == 1
               ? EmailItemCard(emails.emails[index])
               : Container()
           // EmailItemCard(emails.getEmails("1910295", index)),
@@ -88,6 +97,7 @@ class _EmailItemState extends State<EmailItem> {
   }
 
   Widget buildListView(userID) {
+    final emails = context.read<EmailManager>();
     return ListView.builder(
       itemCount: emails.emailCount,
       itemBuilder: (context, index) {

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         Provider(
           create: (context) => User(mailAddr: "", password: "", userID: ""),
         ),
-        Provider(
+        ChangeNotifierProvider(
           create: (context) => EmailManager(),
         ),
       ],
@@ -48,12 +48,12 @@ class MyApp extends StatelessWidget {
           // EmailDetailScreen.routeName: (context) => const EmailDetailScreen(email)
         },
         // onGenerateRoute: (settings) {
-        //   if (settings.name == EmailDetailScreen.routeName) {
-        //     final emailId = settings.arguments as String;
+        //   if (settings.name == EmailComposition.routeName) {
+        //     // final emailId = settings.arguments as String;
         //     return MaterialPageRoute(
         //       builder: (context) {
-        //         return EmailDetailScreen(
-        //           EmailManager().findById(emailId),
+        //         return EmailComposition(
+        //           "",
         //         );
         //       },
         //     );

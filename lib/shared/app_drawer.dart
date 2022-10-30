@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/user.dart';
+import '../ui/email/email_composition.dart';
 // import '../ui/user/userManager.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -42,7 +43,11 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.edit, size: 32.0,),
             title: const Text("Compose", style: TextStyle(fontSize: 16),),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EmailComposition(),
+              ));
+            },
           ),
           const Divider(),
           ListTile(

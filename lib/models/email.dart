@@ -1,14 +1,14 @@
 class Email {
   final String? id;
-  final String userID;
-  final String sentFrom;
-  final String sentTo;
-  final String content;
-  final String subject;
+  // final String userID;
+  String sentFrom;
+  String sentTo;
+  String content;
+  String subject;
 
   Email({
     this.id,
-    required this.userID,
+    // required this.userID,
     required this.sentFrom,
     required this.sentTo,
     required this.content,

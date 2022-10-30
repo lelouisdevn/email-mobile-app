@@ -4,7 +4,6 @@ import '../../models/email.dart';
 class EmailManager with ChangeNotifier {
   final List _emails = [
     Email(
-      userID: "1910295",
       sentFrom: "vanaB12345@student.com",
       sentTo: "thaiB1910295@student.com",
       content:
@@ -12,14 +11,12 @@ class EmailManager with ChangeNotifier {
       subject: "Chao cac ban nha. ",
     ),
     Email(
-      userID: "1910295",
       sentFrom: "thaingo1202@outlook.com",
       sentTo: "thaiB1910295@student.com",
       content: "Don xin gia nhap",
       subject: "Don xin gia han dong hoc phi",
     ),
     Email(
-      userID: "1910296",
       sentFrom: "thic@student.com",
       sentTo: "thaingo1202@student.com",
       content:
@@ -27,9 +24,14 @@ class EmailManager with ChangeNotifier {
       subject: "Nghi hoc",
     ),
     Email(
-      userID: "1910295",
       sentFrom: "thic@student.com",
       sentTo: "thaiB1910295@student.com",
+      content: "Test",
+      subject: "Nghi hoc",
+    ),
+    Email(
+      sentFrom: "thaingo1202@student.com",
+      sentTo: "mystericuser@student.com",
       content: "Test",
       subject: "Nghi hoc",
     ),
@@ -42,8 +44,8 @@ class EmailManager with ChangeNotifier {
     return [..._emails];
   }
 
-  int getEmails(String userID, int index) {
-    if (_emails[index].userID == userID) {
+  int getInboxEmails(String userEmail, int index) {
+    if (_emails[index].sentTo == userEmail) {
       return 1;
     }
     return 0;
@@ -53,7 +55,30 @@ class EmailManager with ChangeNotifier {
     return _emails.firstWhere((element) => element.id == id);
   }
 
-  Email getSentEmails(String userID) {
-    return _emails[1];
+  int getSentEmails(String email, int index) {
+    if (_emails[index].sentFrom == email) {
+      return 1;
+    }
+    return 0;
+  }
+
+  void addEmails(Email newEmail) {
+    _emails.add(newEmail);
+    notifyListeners();
+  }
+
+  int getEmailIndex(Email email) {
+    int index = -1;
+    for (var i = 0; i < emailCount; i++) {
+      if (_emails[i].id == email.id) {
+        return index;
+      }
+    }
+    return index;
+  }
+
+  void deleteEmail(int index) {
+    _emails.removeAt(index);
+    notifyListeners();
   }
 }

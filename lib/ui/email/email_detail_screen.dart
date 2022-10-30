@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:atlanteans_email/ui/email/email_composition.dart';
+import 'package:atlanteans_email/ui/email/email_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ class EmailDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final emailManager = context.watch<EmailManager>();
     return Scaffold(
       appBar: AppBar(
         title: Text(email.subject),
@@ -25,7 +27,11 @@ class EmailDetailScreen extends StatelessWidget {
             icon: const Icon(Icons.reply),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              // emailManager.deleteEmail(1);
+
+              Navigator.of(context).pushReplacementNamed("/all-emails");
+            },
             icon: const Icon(Icons.delete),
           ),
         ],
@@ -79,7 +85,7 @@ class EmailDetailScreen extends StatelessWidget {
                       onTap: () {
                         // Navigator.of(context).pushReplacement(EmailComposition(email.sentFrom));
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) => EmailComposition(email.sentFrom),
+                          builder: (ctx) => EmailComposition(),
                         ));
                       },
                       child: Text(
