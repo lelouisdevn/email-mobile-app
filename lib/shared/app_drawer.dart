@@ -1,3 +1,5 @@
+import 'package:atlanteans_email/models/email.dart';
+import 'package:atlanteans_email/ui/email/sent_emails_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,12 +21,13 @@ class AppDrawer extends StatelessWidget {
             title: const Text("Activities"),
             leading: const FittedBox(
               fit: BoxFit.scaleDown,
-              // child: CircleAvatar(
-              //   backgroundColor: Colors.white,
-              //   backgroundImage: AssetImage("assets/images/logo.png"),
-              // ),
               child: Icon(Icons.settings),
             ),
+            actions: [
+              IconButton(onPressed: () {
+                Scaffold.of(context).closeDrawer();
+              }, icon: Icon(Icons.close))
+            ],
           ),
           ListTile(
             leading: const Icon(Icons.inbox, size: 32.0,),
@@ -37,15 +40,20 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.send, size: 32.0,),
             title: const Text("Sent", style: TextStyle(fontSize: 16),),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SentEmails(),
+              ));
+            },
           ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.edit, size: 32.0,),
             title: const Text("Compose", style: TextStyle(fontSize: 16),),
             onTap: () {
+              var newEmail = Email(sentFrom: "", sentTo: "", content: "", subject: "");
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => EmailComposition(),
+                builder: (context) => EmailComposition(newEmail),
               ));
             },
           ),

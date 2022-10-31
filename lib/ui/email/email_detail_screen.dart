@@ -23,7 +23,11 @@ class EmailDetailScreen extends StatelessWidget {
         title: Text(email.subject),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (ctx) => EmailComposition(email),
+              ));
+            },
             icon: const Icon(Icons.reply),
           ),
           IconButton(
@@ -83,10 +87,9 @@ class EmailDetailScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // Navigator.of(context).pushReplacement(EmailComposition(email.sentFrom));
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) => EmailComposition(),
-                        ));
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //   builder: (ctx) => EmailComposition(),
+                        // ));
                       },
                       child: Text(
                         "From: ${email.sentFrom}",

@@ -1,16 +1,11 @@
-import 'dart:ffi';
-
-import 'package:atlanteans_email/ui/email/email_detail_screen.dart';
 import 'package:atlanteans_email/ui/email/email_manager.dart';
+import 'package:atlanteans_email/ui/email/sent_emails_screen.dart';
 import 'package:atlanteans_email/ui/user/userManager.dart';
 import 'package:flutter/material.dart';
 import 'models/user.dart';
 import 'ui/email/overview.dart';
 import 'ui/login.dart';
 import 'package:provider/provider.dart';
-import 'screen.dart';
-import 'ui/email/email_composition.dart';
-// import 'models/user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,6 +40,7 @@ class MyApp extends StatelessWidget {
         // home: const EmailComposition(),
         routes: {
           EmailItem.routeName: (context) => const EmailItem(),
+          SentEmails.routeName: (context) => const SentEmails(),
           // EmailDetailScreen.routeName: (context) => const EmailDetailScreen(email)
         },
         // onGenerateRoute: (settings) {

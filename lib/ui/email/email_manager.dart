@@ -11,6 +11,13 @@ class EmailManager with ChangeNotifier {
       subject: "Chao cac ban nha. ",
     ),
     Email(
+      sentFrom: "thaiB1910295@student.com",
+      sentTo: "vanaB12345@student.com",
+      content:
+          "Chao ban, Toi la Vinh Thai, han hanh duoc lam quen voi cac ban, Toi la Vinh Thai, han hanh duoc lam quen voi cac ban",
+      subject: "Chao cac ban nha. ",
+    ),
+    Email(
       sentFrom: "thaingo1202@outlook.com",
       sentTo: "thaiB1910295@student.com",
       content: "Don xin gia nhap",

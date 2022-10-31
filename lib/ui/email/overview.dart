@@ -2,6 +2,7 @@ import 'package:atlanteans_email/models/user.dart';
 import 'package:atlanteans_email/ui/email/email_composition.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/email.dart';
 import '../../shared/app_drawer.dart';
 import '../email/email_item_card.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,8 @@ class EmailItem extends StatefulWidget {
 }
 
 class _EmailItemState extends State<EmailItem> {
-  // final emails = EmailManager();
-
   @override
   Widget build(BuildContext context) {
-    final emails = context.read<EmailManager>();
-    final user = context.read<User>();
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
@@ -40,9 +37,10 @@ class _EmailItemState extends State<EmailItem> {
         actions: [
           IconButton(
             onPressed: () {
-              // Navigator.of(context).pushReplacementNamed("/email-composition");
+              var newEmail =
+                  Email(sentFrom: "", sentTo: "", content: "", subject: "");
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => EmailComposition(),
+                builder: (context) => EmailComposition(newEmail),
               ));
             },
             icon: const Icon(Icons.edit),
@@ -57,11 +55,11 @@ class _EmailItemState extends State<EmailItem> {
           ),
         ],
       ),
-      body: buildListView(user.userID),
+      body: buildListView(),
     );
   }
 
-  Widget buildDissmissible(userID, index) {
+  Widget buildDissmissible(index) {
     final emails = context.read<EmailManager>();
     final user = context.read<User>();
     return GestureDetector(
@@ -96,12 +94,12 @@ class _EmailItemState extends State<EmailItem> {
     );
   }
 
-  Widget buildListView(userID) {
+  Widget buildListView() {
     final emails = context.read<EmailManager>();
     return ListView.builder(
       itemCount: emails.emailCount,
       itemBuilder: (context, index) {
-        return buildDissmissible(userID, index);
+        return buildDissmissible(index);
       },
     );
   }

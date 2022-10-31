@@ -9,8 +9,8 @@ import '../../models/email.dart';
 import '../../models/user.dart';
 
 class EmailComposition extends StatefulWidget {
-  const EmailComposition({super.key});
-  // final String emailAddr;
+  const EmailComposition(this.email, {super.key});
+  final Email email;
 
   static const routeName = "/email-composition";
 
@@ -20,6 +20,7 @@ class EmailComposition extends StatefulWidget {
 
 class _EmailCompositionState extends State<EmailComposition> {
   final toController = TextEditingController();
+
   final subjectController = TextEditingController();
   final contentController = TextEditingController();
   @override
@@ -34,21 +35,16 @@ class _EmailCompositionState extends State<EmailComposition> {
           IconButton(
             icon: Icon(Icons.send),
             onPressed: () {
-              
-                var email = Email(content: "", sentFrom: "", sentTo: "", subject: "");
-                // email.sentTo = toController.text;
-                // email.sentFrom = user.mailAddr;
-                email.sentFrom = toController.text;
-                email.sentTo = user.mailAddr;
-                email.subject = subjectController.text;
-                email.content = contentController.text;
-                print (email.content);
+              var email =
+                  Email(content: "", sentFrom: "", sentTo: "", subject: "");
+              email.sentTo = toController.text;
+              email.sentFrom = user.mailAddr;
+              email.subject = subjectController.text;
+              email.content = contentController.text;
+              print(email.sentFrom);
 
-                emailManager.addEmails(email);
-                Navigator.of(context).pushReplacementNamed("/all-emails");
-                
-                
-              
+              emailManager.addEmails(email);
+              Navigator.of(context).pushReplacementNamed("/sent-emails");
             },
           ),
           IconButton(
@@ -62,13 +58,17 @@ class _EmailCompositionState extends State<EmailComposition> {
   }
 
   Widget buildEmailCompositionScreen(BuildContext context) {
-    // final userAvatar = widget.emailAddr.substring(0, 1).toUpperCase();
+    // display the user avatar
     var userAvatar = "T";
-    // userAvatar = (toController.text).substring(0, 1).toUpperCase();
-    
-    // setState(() {
-    //   userAvatar = (toController.text).substring(0, 1).toUpperCase();
-    // });
+
+    // if user forwards an email in "sent emails", it'll forward with the receiver mail addr
+    // else it'll foward with the sender mail addr.
+    final userEmailAddress = context.read<User>();
+    if (userEmailAddress.mailAddr == widget.email.sentFrom) {
+      toController.text = widget.email.sentTo;
+    } else {
+      toController.text = widget.email.sentFrom;
+    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -78,17 +78,17 @@ class _EmailCompositionState extends State<EmailComposition> {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: CircleAvatar(
-                backgroundColor:
-                    Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                        .withOpacity(1.0),
-                child: Text(
-                  userAvatar,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 22,
-                      color: Colors.white),
+                  backgroundColor:
+                      Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                          .withOpacity(1.0),
+                  child: Text(
+                    userAvatar,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 22,
+                        color: Colors.white),
+                  ),
                 ),
-            ),
               ),
             ],
           ),
@@ -100,14 +100,11 @@ class _EmailCompositionState extends State<EmailComposition> {
                   width: MediaQuery.of(context).size.width * (80 / 100),
                   child: TextFormField(
                     controller: toController,
-                    // initialValue: widget.emailAddr,
-                    // initialValue: toController.text,
                     decoration: const InputDecoration(
-                        // icon: Icon(Icons.password),
-                        labelText: "Send to:",
-                        prefixText: "To: ",
-                        
-                        hintText: "Enter outgoing email address",),
+                      labelText: "Send to:",
+                      prefixText: "To: ",
+                      hintText: "Enter outgoing email address",
+                    ),
                   ),
                 ),
               ),
