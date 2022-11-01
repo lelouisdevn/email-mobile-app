@@ -19,21 +19,27 @@ class _EmailItemCardState extends State<EmailItemCard> {
         // tileColor: Colors.grey.shade200,
         tileColor: Colors.white,
         leading: CircleAvatar(
-          // backgroundImage: AssetImage('assets/images/logo.png'),
-          backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+          backgroundColor:
+              Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                  .withOpacity(1.0),
           child: Text(
             userAvatar,
-            style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 22, color: Colors.white),
-            
+            style: const TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 22,
+              color: Colors.white,
+            ),
           ),
         ),
         title: Text(
-          widget.email.subject,
+          // widget.email.subject,
+          widget.email.sentFrom,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         subtitle: Text(
-          widget.email.content,
+          // widget.email.content,
+          widget.email.subject,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),

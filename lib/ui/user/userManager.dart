@@ -6,7 +6,6 @@ class UserManager with ChangeNotifier {
     User(
         userID: "1910295",
         mailAddr: "thaiB1910295@student.com",
-        // mailAddr: "123",
         password: "12345"),
     User(
         userID: "1910296",

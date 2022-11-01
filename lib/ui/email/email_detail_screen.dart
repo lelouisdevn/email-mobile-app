@@ -12,27 +12,29 @@ import 'email_composition.dart';
 
 class EmailDetailScreen extends StatelessWidget {
   static const routeName = '/email-details';
-  final Email email;
-  const EmailDetailScreen(this.email, {super.key});
+  // final Email email;
+  final int index;
+  const EmailDetailScreen(this.index, {super.key});
 
   @override
   Widget build(BuildContext context) {
     final emailManager = context.watch<EmailManager>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(email.subject),
+        title: Text(emailManager.emails[index].subject),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (ctx) => EmailComposition(email),
+                builder: (ctx) => EmailComposition(emailManager.emails[index]),
               ));
             },
             icon: const Icon(Icons.reply),
           ),
           IconButton(
             onPressed: () {
-              // emailManager.deleteEmail(1);
+              // emailManager.deleteEmail(index);
+              emailManager.moveToTrash(index);
 
               Navigator.of(context).pushReplacementNamed("/all-emails");
             },
@@ -57,7 +59,8 @@ class EmailDetailScreen extends StatelessWidget {
 
   Widget buildTitle(BuildContext context) {
     final user = context.read<User>();
-    final userAvatar = email.sentFrom.substring(0, 1).toUpperCase();
+    final emailManager = context.read<EmailManager>();
+    final userAvatar = emailManager.emails[index].sentFrom.substring(0, 1).toUpperCase();
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -92,7 +95,7 @@ class EmailDetailScreen extends StatelessWidget {
                         // ));
                       },
                       child: Text(
-                        "From: ${email.sentFrom}",
+                        "From: ${emailManager.emails[index].sentFrom}",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
@@ -105,7 +108,7 @@ class EmailDetailScreen extends StatelessWidget {
                       //     Navigator.of(context).pushNamed("/all-emails");
                       //   },
                       child: Text(
-                        "To: ${email.sentTo}",
+                        "To: ${emailManager.emails[index].sentTo}",
                         style: const TextStyle(fontSize: 15),
                       ),
                       // ),
@@ -121,6 +124,7 @@ class EmailDetailScreen extends StatelessWidget {
   }
 
   Widget buildEmailContentPart(BuildContext context) {
+    final email = context.read<EmailManager>().emails[index];
     return Column(
       children: [
         // subject

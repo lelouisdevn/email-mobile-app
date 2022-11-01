@@ -33,10 +33,15 @@ class _EmailCompositionState extends State<EmailComposition> {
         title: const Text("Compose"),
         actions: [
           IconButton(
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             onPressed: () {
-              var email =
-                  Email(content: "", sentFrom: "", sentTo: "", subject: "");
+              var email = Email(
+                content: "",
+                sentFrom: "",
+                sentTo: "",
+                subject: "",
+                status: "false",
+              );
               email.sentTo = toController.text;
               email.sentFrom = user.mailAddr;
               email.subject = subjectController.text;
@@ -48,7 +53,7 @@ class _EmailCompositionState extends State<EmailComposition> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             onPressed: () {},
           ),
         ],

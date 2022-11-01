@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/email.dart';
-import '../../models/user.dart';
-import 'email_composition.dart';
-import 'email_detail_screen.dart';
-import 'email_item_card.dart';
-import 'email_manager.dart';
-import '../../shared/app_drawer.dart';
+import '../../../models/email.dart';
+import '../../../models/user.dart';
+import '../../../shared/app_drawer.dart';
+import '../email_composition.dart';
+import '../email_detail_screen.dart';
+import '../email_item_card.dart';
+import '../email_manager.dart';
 
-class SentEmails extends StatefulWidget {
-  const SentEmails({super.key});
+class DeletedEmails extends StatefulWidget {
+  const DeletedEmails({super.key});
 
-  static const routeName = "/sent-emails";
+  static const routeName = "/deleted-emails";
 
   @override
-  State<SentEmails> createState() => _SentEmailsState();
+  State<DeletedEmails> createState() => _DeletedEmailsState();
 }
 
-class _SentEmailsState extends State<SentEmails> {
+class _DeletedEmailsState extends State<DeletedEmails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: AppBar(
-        title: const Text("Sent"),
+        title: const Text("Deleted"),
         leading: Builder(
           builder: (context) => // Ensure Scaffold is in context
               IconButton(
@@ -90,12 +90,15 @@ class _SentEmailsState extends State<SentEmails> {
           ),
         ),
         direction: DismissDirection.endToStart,
+        onDismissed: (direction) {
+          emails.moveToTrash(index);
+        },
         key: ValueKey(emails.emails[index]),
         confirmDismiss: ((direction) {
           return showComfirmDialogue(context, 'Remove this email?');
         }),
         // child: EmailItemCard(emails.emails[index]),
-        child: emails.getSentEmails(user.mailAddr, index) == 1
+        child: emails.getDeletedEmails(user.mailAddr, index) == 1
             ? EmailItemCard(emails.emails[index])
             : Container(),
       ),

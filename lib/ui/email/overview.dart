@@ -38,7 +38,7 @@ class _EmailItemState extends State<EmailItem> {
           IconButton(
             onPressed: () {
               var newEmail =
-                  Email(sentFrom: "", sentTo: "", content: "", subject: "");
+                  Email(sentFrom: "", sentTo: "", content: "", subject: "", status: "false");
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => EmailComposition(newEmail),
               ));
@@ -65,7 +65,7 @@ class _EmailItemState extends State<EmailItem> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (ctx) => EmailDetailScreen(emails.emails[index]),
+          builder: (ctx) => EmailDetailScreen(index),
         ));
       },
       child: Dismissible(
@@ -79,12 +79,15 @@ class _EmailItemState extends State<EmailItem> {
               size: 30,
             ),
           ),
+          onDismissed:(direction) {
+            emails.moveToTrash(index);
+            // showComfirmDialogue(context, "Remove this email?");
+          },
           direction: DismissDirection.endToStart,
           key: ValueKey(emails.emails[index]),
           confirmDismiss: ((direction) {
-            return showComfirmDialogue(context, 'Remove this email?');
+            return showComfirmDialogue(context, 'Remove this email?', index);
           }),
-          // child: EmailItemCard(emails.emails[index]),
           child: emails.getInboxEmails(user.mailAddr, index) == 1
               ? EmailItemCard(emails.emails[index])
               : Container()
@@ -104,23 +107,35 @@ class _EmailItemState extends State<EmailItem> {
     );
   }
 
-  Future<bool?> showComfirmDialogue(BuildContext context, String message) {
+  Future<bool?> showComfirmDialogue(BuildContext context, String message, int index) {
+    final emails = context.read<EmailManager>();
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Are you sure?'),
+        title: const Text('Move to trash?'),
         content: Text(message),
         actions: [
           TextButton(
               onPressed: () {
+                
                 Navigator.of(context).pop(false);
+                emails.deleteEmail(index);
+                
+                Navigator.of(context).pushReplacementNamed("/all-emails");
               },
-              child: const Text('No')),
+              child: const Text('Delete permanently')),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(true);
             },
-            child: const Text('Yes'),
+            child: const Text('Move to trash'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Navigator.of(context).pop(true);
+              Navigator.of(context).pop(false);
+            },
+            child: const Text('Cancel'),
           ),
         ],
       ),

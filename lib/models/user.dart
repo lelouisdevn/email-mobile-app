@@ -12,8 +12,4 @@ class User {
     required this.mailAddr,
     required this.password,
   });
-
-  // login(String userID) {
-  //   userID = userID;
-  // }
 }

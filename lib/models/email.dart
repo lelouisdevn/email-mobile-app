@@ -5,6 +5,7 @@ class Email {
   String sentTo;
   String content;
   String subject;
+  String status; 
   // DateTime at;
 
   Email({
@@ -14,6 +15,7 @@ class Email {
     required this.sentTo,
     required this.content,
     required this.subject,
+    required this.status,
     // required this.at,
   });
 }

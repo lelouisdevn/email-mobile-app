@@ -41,7 +41,6 @@ class MyApp extends StatelessWidget {
         routes: {
           EmailItem.routeName: (context) => const EmailItem(),
           SentEmails.routeName: (context) => const SentEmails(),
-          // EmailDetailScreen.routeName: (context) => const EmailDetailScreen(email)
         },
         // onGenerateRoute: (settings) {
         //   if (settings.name == EmailComposition.routeName) {
