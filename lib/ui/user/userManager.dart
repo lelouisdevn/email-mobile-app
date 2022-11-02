@@ -21,8 +21,9 @@ class UserManager with ChangeNotifier {
     return [..._users];
   }
 
-  // return userID if log-in information is valid
-  // return 'false' if it's wrong.
+  // Check login information
+  // if this user has matched mail address and password with what we have in our database
+  // then return the uid, else return false;
   String logIn(email, password) {
     String state = "false";
     for (var e in _users) {

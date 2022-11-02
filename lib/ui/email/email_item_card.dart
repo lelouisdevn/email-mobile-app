@@ -44,7 +44,9 @@ class _EmailItemCardState extends State<EmailItemCard> {
           overflow: TextOverflow.ellipsis,
         ),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            
+          },
           icon: const Icon(Icons.remove_circle_outline),
         ),
       ),

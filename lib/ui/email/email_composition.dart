@@ -40,7 +40,7 @@ class _EmailCompositionState extends State<EmailComposition> {
                 sentFrom: "",
                 sentTo: "",
                 subject: "",
-                status: "false",
+                status: "true",
               );
               email.sentTo = toController.text;
               email.sentFrom = user.mailAddr;

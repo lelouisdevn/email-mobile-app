@@ -33,8 +33,8 @@ class EmailDetailScreen extends StatelessWidget {
           ),
           IconButton(
             onPressed: () {
-              // emailManager.deleteEmail(index);
               emailManager.moveToTrash(index);
+              // const SnackBar(content: Text("Moved to trash"));
 
               Navigator.of(context).pushReplacementNamed("/all-emails");
             },
@@ -102,11 +102,6 @@ class EmailDetailScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 17),
-                      // child: GestureDetector(
-                      //   onTap: () {
-                      //     // print("go to copose mail");
-                      //     Navigator.of(context).pushNamed("/all-emails");
-                      //   },
                       child: Text(
                         "To: ${emailManager.emails[index].sentTo}",
                         style: const TextStyle(fontSize: 15),

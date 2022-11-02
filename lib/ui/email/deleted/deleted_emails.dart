@@ -1,3 +1,4 @@
+import 'package:atlanteans_email/ui/search.dart/search_emails.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +45,11 @@ class _DeletedEmailsState extends State<DeletedEmails> {
             icon: const Icon(Icons.edit),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (ctx) => Search(),
+              ));
+            },
             icon: const Icon(Icons.search),
           ),
           IconButton(
@@ -95,7 +100,7 @@ class _DeletedEmailsState extends State<DeletedEmails> {
         },
         key: ValueKey(emails.emails[index]),
         confirmDismiss: ((direction) {
-          return showComfirmDialogue(context, 'Remove this email?');
+          return showComfirmDialogue(context, 'Restore this email?');
         }),
         // child: EmailItemCard(emails.emails[index]),
         child: emails.getDeletedEmails(user.mailAddr, index) == 1
@@ -109,9 +114,9 @@ class _DeletedEmailsState extends State<DeletedEmails> {
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text(
-          'Are you sure?',
-        ),
+        // title: const Text(
+        //   'Are you sure?',
+        // ),
         content: Text(message),
         actions: [
           TextButton(

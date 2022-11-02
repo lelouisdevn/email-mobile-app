@@ -86,7 +86,7 @@ class _EmailItemState extends State<EmailItem> {
           direction: DismissDirection.endToStart,
           key: ValueKey(emails.emails[index]),
           confirmDismiss: ((direction) {
-            return showComfirmDialogue(context, 'Remove this email?', index);
+            return showComfirmDialogue(context, 'Move to trash?', index);
           }),
           child: emails.getInboxEmails(user.mailAddr, index) == 1
               ? EmailItemCard(emails.emails[index])
@@ -112,7 +112,7 @@ class _EmailItemState extends State<EmailItem> {
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Move to trash?'),
+        // title: const Text('Move to trash?'),
         content: Text(message),
         actions: [
           TextButton(

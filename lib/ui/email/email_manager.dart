@@ -4,6 +4,13 @@ import '../../models/email.dart';
 class EmailManager with ChangeNotifier {
   final List _emails = [
     Email(
+      sentFrom: "",
+      sentTo: "",
+      content: "",
+      subject: "",
+      status: "",
+    ),
+    Email(
       sentFrom: "vanaB12345@student.com",
       sentTo: "thaiB1910295@student.com",
       content:
@@ -34,13 +41,13 @@ class EmailManager with ChangeNotifier {
       subject: "Nghi hoc",
       status: "false", // deleted
     ),
-    // Email(
-    //   sentFrom: "thic@student.com",
-    //   sentTo: "thaiB1910295@student.com",
-    //   content: "Test",
-    //   subject: "Nghi hoc",
-    //   status: "true",
-    // ),
+    Email(
+      sentFrom: "thic@student.com",
+      sentTo: "thaiB1910295@student.com",
+      content: "Test",
+      subject: "Nghi hoc",
+      status: "true",
+    ),
     Email(
       sentFrom: "thaingo1202@student.com",
       sentTo: "mystericuser@student.com",
@@ -69,32 +76,40 @@ class EmailManager with ChangeNotifier {
     return _emails.firstWhere((element) => element.id == id);
   }
 
-  int getSentEmails(String email, int index) {
-    if (_emails[index].sentFrom == email && _emails[index].status == "true") {
+  // if the email at index
+  // was sent by the current user and is not deleted yet
+  // then return 1 - else return 0;
+  int getSentEmails(String emailAddr, int index) {
+    if (_emails[index].sentFrom == emailAddr &&
+        _emails[index].status == "true") {
       return 1;
     }
     return 0;
   }
 
-  // this function will be called when users send their mails.
+  // insert to the end of list a new email
   void addEmails(Email newEmail) {
     _emails.add(newEmail);
     notifyListeners();
   }
 
+  // move email at index to trash (true -> false)
+  // and restore from the bin (false -> true)
   void moveToTrash(index) {
     _emails[index].status == "true"
-    ? _emails[index].status = "false"
-    : _emails[index].status = "true";
+        ? _emails[index].status = "false"
+        : _emails[index].status = "true";
     notifyListeners();
   }
 
-  // Delete the selected email when trigger the "dismissible" or "delete icon".
+  // Delete permanently the email at index position
   void deleteEmail(int index) {
     _emails.removeAt(index);
     notifyListeners();
   }
 
+  // check if the mail at index has property of "false" status 
+  // then return 1; else return 0;
   int getDeletedEmails(mailaddr, index) {
     if (_emails[index].status == "false" &&
         (_emails[index].sentFrom == mailaddr ||
@@ -104,12 +119,30 @@ class EmailManager with ChangeNotifier {
     return 0;
   }
 
+  // standardise data of emails at index before searching
+  String standardise(index) {
+    // concatenate all data field into one string
+    String formattedString = _emails[index].sentFrom +
+        _emails[index].sentTo +
+        _emails[index].subject +
+        _emails[index].content;
+
+    // then convert it to lowercase and remove all white spaces;
+    return formattedString.toLowerCase().replaceAll(' ', '');
+  }
+
+  // if the email at index contains query
+  // add its index to list
   List search(thisUser, query) {
+    // format the search query and inititalise array named results;
+    final formattedQuery = query.toString().toLowerCase().replaceAll(' ', '');
     var results = [];
+
+    // iteration
     for (var i = 0; i < _emails.length; i++) {
-      if (_emails[i].subject == query &&
+      if (standardise(i).contains(formattedQuery) &&
           (_emails[i].sentFrom == thisUser || _emails[i].sentTo == thisUser)) {
-        results.add(_emails[i]);
+        results.add(i);
       }
     }
     return results;

@@ -27,7 +27,7 @@ class _SearchState extends State<Search> {
 
   Widget buildSearchBody(BuildContext context) {
     final searchController = TextEditingController();
-    final emailManager = context.watch<EmailManager>();
+    // final emailManager = context.watch<EmailManager>();
     final user = context.read<User>();
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 10),

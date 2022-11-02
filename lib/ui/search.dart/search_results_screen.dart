@@ -29,6 +29,9 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
 
   Widget buildListView(BuildContext context) {
     final emails = context.read<EmailManager>();
+
+    // List L is the list of indices of 
+    // every mails we searched as indices in the _emails list.
     List L = emails.search(widget.thisUser, widget.query);
     return ListView.builder(
       itemCount: L.length,
@@ -37,11 +40,14 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (ctx) => EmailDetailScreen(index),
+                // pass the index of searched email to this screen
+                builder: (ctx) => EmailDetailScreen(L[index]),
               ),
             );
           },
-          child: EmailItemCard(L[index]),
+          // if L[index] is an index of searched email
+          // then pass an "EMAIL" to this with emails.emails[   L[index]   ]
+          child: EmailItemCard(emails.emails[L[index]]),
         );
       },
     );
