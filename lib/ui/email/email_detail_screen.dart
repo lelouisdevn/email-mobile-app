@@ -35,6 +35,13 @@ class EmailDetailScreen extends StatelessWidget {
             onPressed: () {
               emailManager.moveToTrash(index);
               // const SnackBar(content: Text("Moved to trash"));
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(
+                    content: Text("Moved  to trash", textAlign: TextAlign.center,),
+                  ),
+                );
 
               Navigator.of(context).pushReplacementNamed("/all-emails");
             },
@@ -60,7 +67,8 @@ class EmailDetailScreen extends StatelessWidget {
   Widget buildTitle(BuildContext context) {
     final user = context.read<User>();
     final emailManager = context.read<EmailManager>();
-    final userAvatar = emailManager.emails[index].sentFrom.substring(0, 1).toUpperCase();
+    final userAvatar =
+        emailManager.emails[index].sentFrom.substring(0, 1).toUpperCase();
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade200,

@@ -35,8 +35,12 @@ class _SentEmailsState extends State<SentEmails> {
         actions: [
           IconButton(
             onPressed: () {
-              var newEmail =
-                  Email(sentFrom: "", sentTo: "", content: "", subject: "", status: "false");
+              var newEmail = Email(
+                  sentFrom: "",
+                  sentTo: "",
+                  content: "",
+                  subject: "",
+                  status: "false");
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => EmailComposition(newEmail),
               ));
@@ -89,10 +93,23 @@ class _SentEmailsState extends State<SentEmails> {
             size: 30,
           ),
         ),
+        onDismissed: (direction) {
+          emails.moveToTrash(index);
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                content: Text(
+                  "Moved to trash",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+        },
         direction: DismissDirection.endToStart,
         key: ValueKey(emails.emails[index]),
         confirmDismiss: ((direction) {
-          return showComfirmDialogue(context, 'Remove this email?');
+          return showComfirmDialogue(context, 'Move to trash?', index);
         }),
         // child: EmailItemCard(emails.emails[index]),
         child: emails.getSentEmails(user.mailAddr, index) == 1
@@ -102,26 +119,46 @@ class _SentEmailsState extends State<SentEmails> {
     );
   }
 
-  Future<bool?> showComfirmDialogue(BuildContext context, String message) {
+  Future<bool?> showComfirmDialogue(
+      BuildContext context, String message, int index) {
+    final emails = context.read<EmailManager>();
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text(
-          'Are you sure?',
-        ),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(false);
+              emails.deleteEmail(index);
+
+              Navigator.of(context).pushReplacementNamed("/all-emails");
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      "Deleted",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
             },
-            child: const Text('No'),
+            child: const Text(
+              "Delete permanently",
+            ),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(true);
             },
-            child: const Text('Yes'),
+            child: const Text('Moved to trash'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: const Text('Cancel'),
           ),
         ],
       ),

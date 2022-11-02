@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../models/user.dart';
 import '../ui/email/deleted/deleted_emails.dart';
 import '../ui/email/email_composition.dart';
-import '../ui/search.dart/search_emails.dart';
+import '../ui/search/search_emails.dart';
 // import '../ui/user/userManager.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -27,10 +27,11 @@ class AppDrawer extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).closeDrawer();
-                  },
-                  icon: const Icon(Icons.close))
+                onPressed: () {
+                  Scaffold.of(context).closeDrawer();
+                },
+                icon: const Icon(Icons.close),
+              ),
             ],
           ),
           ListTile(
@@ -80,9 +81,11 @@ class AppDrawer extends StatelessWidget {
                 subject: "",
                 status: "false",
               );
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => EmailComposition(newEmail),
-              ));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => EmailComposition(newEmail),
+                ),
+              );
             },
           ),
           const Divider(),
@@ -126,6 +129,9 @@ class AppDrawer extends StatelessWidget {
               title: Text(user.mailAddr, style: const TextStyle(fontSize: 16)),
               subtitle: const Text("Log out"),
               onTap: () {
+                user.userID = '';
+                user.mailAddr = '';
+                user.password = '';
                 Navigator.of(context).pushReplacementNamed("/");
               }),
         ],

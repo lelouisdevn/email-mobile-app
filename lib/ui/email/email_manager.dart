@@ -55,6 +55,14 @@ class EmailManager with ChangeNotifier {
       subject: "Nghi hoc",
       status: "true",
     ),
+    Email(
+      sentFrom: "thaiB1910295@student.ctu.edu.vn",
+      sentTo: "example@atlan.com",
+      content: "Kiem tra chuc nang gui mail",
+      subject:
+          "Chuc nang nay hoat dong tuong doi tot, tuy nhien can cai thien them.",
+      status: "true",
+    ),
   ];
   int get emailCount {
     return _emails.length;
@@ -108,7 +116,7 @@ class EmailManager with ChangeNotifier {
     notifyListeners();
   }
 
-  // check if the mail at index has property of "false" status 
+  // check if the mail at index has property of "false" status
   // then return 1; else return 0;
   int getDeletedEmails(mailaddr, index) {
     if (_emails[index].status == "false" &&

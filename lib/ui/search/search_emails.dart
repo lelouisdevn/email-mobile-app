@@ -53,10 +53,10 @@ class _SearchState extends State<Search> {
                 child: IconButton(
                   onPressed: () {
                     var query = searchController.text;
-                    // emailManager.search(this.query);
 
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SearchResultsScreen(user.mailAddr, query),
+                      builder: (context) =>
+                          SearchResultsScreen(user.mailAddr, query),
                     ));
                   },
                   icon: const Icon(

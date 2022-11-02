@@ -3,8 +3,8 @@ import 'package:atlanteans_email/ui/email/sent_emails_screen.dart';
 import 'package:atlanteans_email/ui/user/userManager.dart';
 import 'package:flutter/material.dart';
 import 'models/user.dart';
+import 'ui/auth/login.dart';
 import 'ui/email/overview.dart';
-import 'ui/login.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         home: const LoginPage(),
-        // home: const EmailComposition(),
         routes: {
           EmailItem.routeName: (context) => const EmailItem(),
           SentEmails.routeName: (context) => const SentEmails(),

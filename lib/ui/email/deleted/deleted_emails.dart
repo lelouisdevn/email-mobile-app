@@ -1,10 +1,10 @@
-import 'package:atlanteans_email/ui/search.dart/search_emails.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/email.dart';
 import '../../../models/user.dart';
 import '../../../shared/app_drawer.dart';
+import '../../search/search_emails.dart';
 import '../email_composition.dart';
 import '../email_detail_screen.dart';
 import '../email_item_card.dart';
@@ -102,7 +102,6 @@ class _DeletedEmailsState extends State<DeletedEmails> {
         confirmDismiss: ((direction) {
           return showComfirmDialogue(context, 'Restore this email?');
         }),
-        // child: EmailItemCard(emails.emails[index]),
         child: emails.getDeletedEmails(user.mailAddr, index) == 1
             ? EmailItemCard(emails.emails[index])
             : Container(),
@@ -114,9 +113,6 @@ class _DeletedEmailsState extends State<DeletedEmails> {
     return showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        // title: const Text(
-        //   'Are you sure?',
-        // ),
         content: Text(message),
         actions: [
           TextButton(

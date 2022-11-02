@@ -12,4 +12,6 @@ class User {
     required this.mailAddr,
     required this.password,
   });
+
+  
 }

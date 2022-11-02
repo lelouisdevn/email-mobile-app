@@ -8,9 +8,15 @@ class UserManager with ChangeNotifier {
         mailAddr: "thaiB1910295@student.com",
         password: "12345"),
     User(
-        userID: "1910296",
-        mailAddr: "thaingo1202@student.com",
-        password: "12345"),
+      userID: "1910296",
+      mailAddr: "thaingo1202@student.com",
+      password: "12345",
+    ),
+    User(
+      userID: "1910297",
+      mailAddr: "example@atlan.com",
+      password: "pass",
+    ),
   ];
 
   int get emailCount {
@@ -32,5 +38,24 @@ class UserManager with ChangeNotifier {
       }
     }
     return state;
+  }
+
+  int getLastUserID() {
+    int max = 0;
+
+    for (var index = 0; index < _users.length; index++) {
+      var temp = int.parse(_users[index].userID);
+      if (temp > max) {
+        max = temp;
+      }
+    }
+
+    return max;
+  }
+
+  String createNewUser(User newUser) {
+    newUser.userID = (getLastUserID() + 1).toString();
+    _users.add(newUser);
+    return newUser.userID;
   }
 }

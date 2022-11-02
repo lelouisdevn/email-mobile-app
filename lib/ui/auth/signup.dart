@@ -1,17 +1,18 @@
 import 'package:atlanteans_email/models/user.dart';
+import 'package:atlanteans_email/ui/email/overview.dart';
 import 'package:provider/provider.dart';
 
-import '../ui/user/userManager.dart';
+import '../../ui/user/userManager.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   final emailController = TextEditingController();
   final pwdController = TextEditingController();
 
@@ -46,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
                       Text(
-                        "One step ahead\nto start your workplace",
+                        "Create new account",
                         style: TextStyle(fontSize: 25),
                       ),
                     ],
@@ -74,15 +75,46 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       final userManager = context.read<UserManager>();
 
-                      String isLoggedIn = userManager.logIn(
-                          emailController.text, pwdController.text);
+                      final mailAddr = emailController.text;
+                      final password = pwdController.text;
+                      final newUser = User(
+                          userID: "", mailAddr: mailAddr, password: password);
 
-                      if (isLoggedIn != "false") {
-                        user.userID = isLoggedIn;
-                        user.mailAddr = emailController.text;
+                      if (mailAddr == '') {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "Email is empty!",
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          );
+                      } else if (password == '') {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "Password is empty!",
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          );
+                      } else {
+                        final getCreatedUserID =
+                            userManager.createNewUser(newUser);
 
-                        Navigator.of(context)
-                            .pushReplacementNamed("/all-emails");
+                        user.userID = getCreatedUserID;
+                        user.mailAddr = mailAddr;
+                        user.password = password;
+
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => EmailItem(),
+                          ),
+                        );
                       }
                     },
                     child: Container(
@@ -97,11 +129,11 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text(
-                        "Don't have an account? ",
+                        "Already have an account? ",
                         style: TextStyle(fontSize: 15),
                       ),
                       Text(
-                        "Create one!",
+                        "Log in!",
                         style: TextStyle(color: Colors.blue, fontSize: 15),
                       ),
                     ],
