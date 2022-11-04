@@ -65,9 +65,10 @@ class _LoginPageState extends State<LoginPage> {
                   controller: pwdController,
                   obscuringCharacter: '•',
                   decoration: const InputDecoration(
-                      icon: Icon(Icons.password),
-                      labelText: "Password",
-                      hintText: "Enter your password"),
+                    icon: Icon(Icons.password),
+                    labelText: "Password",
+                    hintText: "Enter your password",
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -84,6 +85,29 @@ class _LoginPageState extends State<LoginPage> {
 
                         Navigator.of(context)
                             .pushReplacementNamed("/all-emails");
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            // title: const Text(""),
+                            content: const Text(
+                              "You have put wrong login information",
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(14),
+                                  child: const Text(
+                                    "Close",
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
                       }
                     },
                     child: Container(
@@ -107,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                             builder: (context) => SignupPage(),
                           ));
                         },
-                        child: Text(
+                        child: const Text(
                           "Create one!",
                           style: TextStyle(color: Colors.blue, fontSize: 15),
                         ),

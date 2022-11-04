@@ -6,6 +6,7 @@ import '../../models/email.dart';
 import '../../shared/app_drawer.dart';
 import '../email/email_item_card.dart';
 import 'package:flutter/material.dart';
+import '../search/search_emails.dart';
 import 'email_detail_screen.dart';
 import 'email_manager.dart';
 
@@ -50,7 +51,13 @@ class _EmailItemState extends State<EmailItem> {
             icon: const Icon(Icons.edit),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => Search(),
+                ),
+              );
+            },
             icon: const Icon(Icons.search),
           ),
           IconButton(
@@ -73,51 +80,62 @@ class _EmailItemState extends State<EmailItem> {
         ));
       },
       child: Dismissible(
-          background: Container(
-            padding: const EdgeInsets.only(right: 20),
-            color: Colors.red,
-            alignment: Alignment.centerRight,
-            child: const Icon(
-              Icons.delete,
-              color: Colors.white,
-              size: 30,
-            ),
+        background: Container(
+          padding: const EdgeInsets.only(right: 20),
+          color: Colors.red,
+          alignment: Alignment.centerRight,
+          child: const Icon(
+            Icons.delete,
+            color: Colors.white,
+            size: 30,
           ),
-          onDismissed: (direction) {
-            emails.moveToTrash(index);
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(
-                  content: Text(
-                    "Moved to trash",
-                    textAlign: TextAlign.center,
-                  ),
+        ),
+        onDismissed: (direction) {
+          emails.moveToTrash(index);
+          Navigator.of(context).pushNamed('/all-emails');
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                content: Text(
+                  "Moved to trash",
+                  textAlign: TextAlign.center,
                 ),
-              );
-          },
-          direction: DismissDirection.endToStart,
-          key: ValueKey(emails.emails[index]),
-          confirmDismiss: ((direction) {
-            return showComfirmDialogue(context, 'Move to trash?', index);
-          }),
-          child: emails.getInboxEmails(user.mailAddr, index) == 1
-              ? EmailItemCard(emails.emails[index])
-              : Container()
-          // EmailItemCard(emails.getEmails("1910295", index)),
-
-          ),
+              ),
+            );
+        },
+        direction: DismissDirection.endToStart,
+        key: ValueKey(emails.emails[index]),
+        confirmDismiss: ((direction) {
+          return showComfirmDialogue(context, 'Move to trash?', index);
+        }),
+        // child: emails.getInboxEmails(user.mailAddr, index) == 1
+        //     ? EmailItemCard(emails.emails[index])
+        //     : Container()
+        child: EmailItemCard(emails.emails[index]),
+      ),
     );
   }
 
   Widget buildListView() {
     final emails = context.read<EmailManager>();
-    return ListView.builder(
-      itemCount: emails.emailCount,
-      itemBuilder: (context, index) {
-        return buildDissmissible(index);
-      },
-    );
+    final user = context.read<User>();
+    List L = emails.inboxEmails(user.mailAddr);
+    if (L.isEmpty) {
+      return const Center(
+        child: Text(
+          "No incoming emails!",
+          style: TextStyle(fontSize: 16),
+        ),
+      );
+    } else {
+      return ListView.builder(
+        itemCount: L.length,
+        itemBuilder: (context, index) {
+          return buildDissmissible(L[index]);
+        },
+      );
+    }
   }
 
   Future<bool?> showComfirmDialogue(

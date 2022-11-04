@@ -53,7 +53,8 @@ class _DeletedEmailsState extends State<DeletedEmails> {
             icon: const Icon(Icons.search),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+            },
             icon: const Icon(Icons.more_vert),
           ),
         ],

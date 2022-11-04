@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/email.dart';
 import '../../models/user.dart';
+import '../search/search_emails.dart';
 import 'email_composition.dart';
 import 'email_detail_screen.dart';
 import 'email_item_card.dart';
@@ -48,7 +49,11 @@ class _SentEmailsState extends State<SentEmails> {
             icon: const Icon(Icons.edit),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => Search())
+              );
+            },
             icon: const Icon(Icons.search),
           ),
           IconButton(
@@ -152,7 +157,7 @@ class _SentEmailsState extends State<SentEmails> {
             onPressed: () {
               Navigator.of(context).pop(true);
             },
-            child: const Text('Moved to trash'),
+            child: const Text('Move to trash'),
           ),
           TextButton(
             onPressed: () {

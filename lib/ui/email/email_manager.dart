@@ -80,6 +80,17 @@ class EmailManager with ChangeNotifier {
     return 0;
   }
 
+  List inboxEmails(String userEmail) {
+    List L = [];
+    for (var i = 0; i < _emails.length; i++) {
+      if (_emails[i].sentTo == userEmail && _emails[i].status == "true") {
+        L.add(i);
+      }
+    }
+    notifyListeners();
+    return L;
+  }
+
   Email findById(String id) {
     return _emails.firstWhere((element) => element.id == id);
   }
