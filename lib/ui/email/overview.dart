@@ -39,11 +39,13 @@ class _EmailItemState extends State<EmailItem> {
           IconButton(
             onPressed: () {
               var newEmail = Email(
-                  sentFrom: "",
-                  sentTo: "",
-                  content: "",
-                  subject: "",
-                  status: "false");
+                sentFrom: "",
+                sentTo: "",
+                content: "",
+                subject: "",
+                status: "false",
+                at: DateTime.now(),
+              );
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => EmailComposition(newEmail),
               ));
@@ -72,7 +74,6 @@ class _EmailItemState extends State<EmailItem> {
 
   Widget buildDissmissible(index) {
     final emails = context.read<EmailManager>();
-    final user = context.read<User>();
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -109,9 +110,6 @@ class _EmailItemState extends State<EmailItem> {
         confirmDismiss: ((direction) {
           return showComfirmDialogue(context, 'Move to trash?', index);
         }),
-        // child: emails.getInboxEmails(user.mailAddr, index) == 1
-        //     ? EmailItemCard(emails.emails[index])
-        //     : Container()
         child: EmailItemCard(emails.emails[index]),
       ),
     );

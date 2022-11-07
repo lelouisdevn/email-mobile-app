@@ -16,7 +16,6 @@ class _EmailItemCardState extends State<EmailItemCard> {
     final userAvatar = widget.email.sentFrom.substring(0, 1).toUpperCase();
     return Card(
       child: ListTile(
-        // tileColor: Colors.grey.shade200,
         tileColor: Colors.white,
         leading: CircleAvatar(
           backgroundColor:

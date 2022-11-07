@@ -6,7 +6,7 @@ class Email {
   String content;
   String subject;
   String status; 
-  // DateTime at;
+  DateTime at;
 
   Email({
     this.id,
@@ -16,6 +16,6 @@ class Email {
     required this.content,
     required this.subject,
     required this.status,
-    // required this.at,
+    required this.at,
   });
 }

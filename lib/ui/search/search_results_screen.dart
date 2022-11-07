@@ -39,6 +39,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
 
   Widget buildListView(BuildContext context) {
     final emails = context.read<EmailManager>();
+    
 
     // List L is the list of indices of
     // every mails we searched as indices in the _emails list.

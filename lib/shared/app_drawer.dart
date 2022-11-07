@@ -1,4 +1,5 @@
 import 'package:atlanteans_email/models/email.dart';
+import 'package:atlanteans_email/ui/email/overview.dart';
 import 'package:atlanteans_email/ui/email/sent_emails_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,7 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16),
             ),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed("/all-emails");
+              Navigator.of(context).pushReplacementNamed(EmailItem.routeName);
             },
           ),
           const Divider(),
@@ -58,9 +59,10 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16),
             ),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const SentEmails(),
-              ));
+              // Navigator.of(context).push(MaterialPageRoute(
+              //   builder: (context) => const SentEmails(),
+              // ));
+              Navigator.of(context).pushReplacementNamed(SentEmails.routeName);
             },
           ),
           const Divider(),
@@ -80,6 +82,7 @@ class AppDrawer extends StatelessWidget {
                 content: "",
                 subject: "",
                 status: "false",
+                at: DateTime.now(),
               );
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -115,9 +118,10 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16),
             ),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => DeletedEmails(),
-              ));
+              // Navigator.of(context).push(MaterialPageRoute(
+              //   builder: (context) => DeletedEmails(),
+              // ));
+              Navigator.of(context).pushReplacementNamed(DeletedEmails.routeName);
             },
           ),
           const Divider(),

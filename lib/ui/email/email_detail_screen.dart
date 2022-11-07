@@ -9,6 +9,7 @@ import '../../models/email.dart';
 import 'dart:math' as math;
 import '../../models/user.dart';
 import 'email_composition.dart';
+import 'package:intl/intl.dart';
 
 class EmailDetailScreen extends StatelessWidget {
   static const routeName = '/email-details';
@@ -39,7 +40,10 @@ class EmailDetailScreen extends StatelessWidget {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   const SnackBar(
-                    content: Text("Moved  to trash", textAlign: TextAlign.center,),
+                    content: Text(
+                      "Moved  to trash",
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 );
 
@@ -65,10 +69,12 @@ class EmailDetailScreen extends StatelessWidget {
   }
 
   Widget buildTitle(BuildContext context) {
-    final user = context.read<User>();
     final emailManager = context.read<EmailManager>();
     final userAvatar =
         emailManager.emails[index].sentFrom.substring(0, 1).toUpperCase();
+
+    final mailTime =
+        DateFormat('HH:mm - dd/MM/yyyy').format(emailManager.emails[index].at);
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -93,19 +99,17 @@ class EmailDetailScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Container(
-                height: 40,
+                height: 60,
                 child: Stack(
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //   builder: (ctx) => EmailComposition(),
-                        // ));
-                      },
+                      onTap: () {},
                       child: Text(
                         "From: ${emailManager.emails[index].sentFrom}",
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                     Padding(
@@ -113,6 +117,14 @@ class EmailDetailScreen extends StatelessWidget {
                       child: Text(
                         "To: ${emailManager.emails[index].sentTo}",
                         style: const TextStyle(fontSize: 15),
+                      ),
+                      // ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 35),
+                      child: Text(
+                        "At: $mailTime",
+                        style: const TextStyle(fontSize: 13),
                       ),
                       // ),
                     ),
@@ -174,22 +186,27 @@ class EmailDetailScreen extends StatelessWidget {
           children: const [
             Padding(
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-              // child: Text("Privacy Statement", style: TextStyle(decorationStyle: underline),),
               child: Text(
                 'Privacy Statement',
                 style: TextStyle(
-                    decoration: TextDecoration.underline, color: Colors.blue),
+                  decoration: TextDecoration.underline,
+                  color: Colors.blue,
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0, bottom: 10),
               child: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/logo.png'),
+                backgroundImage: AssetImage(
+                  'assets/images/logo.png',
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 5.0, bottom: 15),
-              child: Text("Atlanteans"),
+              child: Text(
+                "Atlanteans",
+              ),
             ),
           ],
         ),

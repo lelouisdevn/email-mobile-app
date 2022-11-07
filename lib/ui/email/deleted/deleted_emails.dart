@@ -36,8 +36,14 @@ class _DeletedEmailsState extends State<DeletedEmails> {
         actions: [
           IconButton(
             onPressed: () {
-              var newEmail =
-                  Email(sentFrom: "", sentTo: "", content: "", subject: "", status: "false");
+              var newEmail = Email(
+                sentFrom: "",
+                sentTo: "",
+                content: "",
+                subject: "",
+                status: "false",
+                at: DateTime.now(),
+              );
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => EmailComposition(newEmail),
               ));
@@ -46,15 +52,12 @@ class _DeletedEmailsState extends State<DeletedEmails> {
           ),
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (ctx) => Search(),
-              ));
+              Navigator.of(context).pushNamed(Search.routeName);
             },
             icon: const Icon(Icons.search),
           ),
           IconButton(
-            onPressed: () {
-            },
+            onPressed: () {},
             icon: const Icon(Icons.more_vert),
           ),
         ],
@@ -65,10 +68,12 @@ class _DeletedEmailsState extends State<DeletedEmails> {
 
   Widget buildListView() {
     final emails = context.read<EmailManager>();
+    final user = context.read<User>();
+    final L = emails.getDeletedEmails(user.mailAddr);
     return ListView.builder(
-      itemCount: emails.emailCount,
+      itemCount: L.length,
       itemBuilder: (context, index) {
-        return buildDissmissible(index);
+        return buildDissmissible(L[index]);
       },
     );
   }
@@ -103,9 +108,10 @@ class _DeletedEmailsState extends State<DeletedEmails> {
         confirmDismiss: ((direction) {
           return showComfirmDialogue(context, 'Restore this email?');
         }),
-        child: emails.getDeletedEmails(user.mailAddr, index) == 1
-            ? EmailItemCard(emails.emails[index])
-            : Container(),
+        // child: emails.getDeletedEmails(user.mailAddr, index) == 1
+        //     ? EmailItemCard(emails.emails[index])
+        //     : Container(),
+        child: EmailItemCard(emails.emails[index]),
       ),
     );
   }
@@ -116,6 +122,14 @@ class _DeletedEmailsState extends State<DeletedEmails> {
       builder: (ctx) => AlertDialog(
         content: Text(message),
         actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: const Text(
+              'Delete permanently',
+            ),
+          ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(false);

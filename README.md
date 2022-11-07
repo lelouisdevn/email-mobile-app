@@ -1,16 +1,26 @@
-# atlanteans_email
+PROJECT: ỨNG DỤNG EMAIL 
+github: https://
 
-A new Flutter project.
+HỌC PHẦN PHÁT TRIỂN ỨNG DỤNG DI ĐỘNG CT484 - NHÓM 02.
+--------------------------------------------------------
 
-## Getting Started
+1. Mô tả dự án:
+-
+-
 
-This project is a starting point for a Flutter application.
+--------------------------------------------------------
 
-A few resources to get you started if this is your first Flutter project:
+2. Công nghệ sử dụng:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+--------------------------------------------------------
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Cơ sở dữ liệu:
+
+--------------------------------------------------------
+
+4. Hướng phát triển:
+
+--------------------------------------------------------
+
+Đội ngũ phát triển.
+Copyright by Ngô Trần Vĩnh Thái. @2022 - 9999.

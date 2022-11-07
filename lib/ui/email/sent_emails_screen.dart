@@ -37,11 +37,13 @@ class _SentEmailsState extends State<SentEmails> {
           IconButton(
             onPressed: () {
               var newEmail = Email(
-                  sentFrom: "",
-                  sentTo: "",
-                  content: "",
-                  subject: "",
-                  status: "false");
+                sentFrom: "",
+                sentTo: "",
+                content: "",
+                subject: "",
+                status: "false",
+                at: DateTime.now(),
+              );
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => EmailComposition(newEmail),
               ));
@@ -50,9 +52,8 @@ class _SentEmailsState extends State<SentEmails> {
           ),
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => Search())
-              );
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Search()));
             },
             icon: const Icon(Icons.search),
           ),
@@ -68,10 +69,12 @@ class _SentEmailsState extends State<SentEmails> {
 
   Widget buildListView() {
     final emails = context.read<EmailManager>();
+    final user = context.read<User>();
+    List L = emails.getSentEmails(user.mailAddr);
     return ListView.builder(
-      itemCount: emails.emailCount,
+      itemCount: L.length,
       itemBuilder: (context, index) {
-        return buildDissmissible(index);
+        return buildDissmissible(L[index]);
       },
     );
   }
@@ -117,9 +120,10 @@ class _SentEmailsState extends State<SentEmails> {
           return showComfirmDialogue(context, 'Move to trash?', index);
         }),
         // child: EmailItemCard(emails.emails[index]),
-        child: emails.getSentEmails(user.mailAddr, index) == 1
-            ? EmailItemCard(emails.emails[index])
-            : Container(),
+        // child: emails.getSentEmails(user.mailAddr, index) == 1
+        //     ? EmailItemCard(emails.emails[index])
+        //     : Container(),
+        child: EmailItemCard(emails.emails[index]),
       ),
     );
   }

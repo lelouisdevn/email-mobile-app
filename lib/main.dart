@@ -1,3 +1,4 @@
+import 'package:atlanteans_email/ui/email/deleted/deleted_emails.dart';
 import 'package:atlanteans_email/ui/email/email_manager.dart';
 import 'package:atlanteans_email/ui/email/sent_emails_screen.dart';
 import 'package:atlanteans_email/ui/user/userManager.dart';
@@ -6,6 +7,8 @@ import 'models/user.dart';
 import 'ui/auth/login.dart';
 import 'ui/email/overview.dart';
 import 'package:provider/provider.dart';
+
+import 'ui/search/search_emails.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,6 +43,8 @@ class MyApp extends StatelessWidget {
         routes: {
           EmailItem.routeName: (context) => const EmailItem(),
           SentEmails.routeName: (context) => const SentEmails(),
+          DeletedEmails.routeName: (context) => const DeletedEmails(),
+          Search.routeName: (context) => const Search(),
         },
         // onGenerateRoute: (settings) {
         //   if (settings.name == EmailComposition.routeName) {

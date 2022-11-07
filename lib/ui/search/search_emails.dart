@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/user.dart';
-import '../email/email_detail_screen.dart';
-import '../email/email_item_card.dart';
 import 'search_results_screen.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
+
+  static const routeName = "/search";
 
   @override
   State<Search> createState() => _SearchState();
@@ -27,7 +27,6 @@ class _SearchState extends State<Search> {
 
   Widget buildSearchBody(BuildContext context) {
     final searchController = TextEditingController();
-    // final emailManager = context.watch<EmailManager>();
     final user = context.read<User>();
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 10),
@@ -41,11 +40,11 @@ class _SearchState extends State<Search> {
                 child: TextFormField(
                   autofocus: true,
                   controller: searchController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     label: Text("Search query"),
-                    contentPadding: const EdgeInsets.all(5),
+                    contentPadding: EdgeInsets.all(5),
                     border: OutlineInputBorder(
-                      borderSide: new BorderSide(),
+                      borderSide: BorderSide(),
                     ),
                   ),
                 ),
@@ -53,10 +52,13 @@ class _SearchState extends State<Search> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * (20 / 100),
                 child: IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     var query = searchController.text;
 
                     if (query.isNotEmpty) {
+                      ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                      await Future.delayed(const Duration(seconds: 1));
+
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
@@ -71,7 +73,8 @@ class _SearchState extends State<Search> {
                             backgroundColor: Colors.yellow,
                             leading: const Icon(Icons.info_outline),
                             content: const Text(
-                                "The search engine needs your words to process!"),
+                              "The search engine needs your words to process!",
+                            ),
                             actions: [
                               TextButton(
                                 onPressed: () {
@@ -97,51 +100,67 @@ class _SearchState extends State<Search> {
             alignment: WrapAlignment.start,
             children: const [
               Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+                padding: EdgeInsets.only(right: 5.0),
                 child: Chip(
-                  label: Text("Subject"),
+                  label: Text(
+                    "Subject",
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+                padding: EdgeInsets.only(right: 5.0),
                 child: Chip(
-                  label: Text("Sender"),
+                  label: Text(
+                    "Sender",
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+                padding: EdgeInsets.only(right: 5.0),
                 child: Chip(
-                  label: Text("Currently"),
+                  label: Text(
+                    "Currently",
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+                padding: EdgeInsets.only(right: 5.0),
                 child: Chip(
-                  label: Text("Starred"),
+                  label: Text(
+                    "Starred",
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+                padding: EdgeInsets.only(right: 5.0),
                 child: Chip(
-                  label: Text("Important"),
+                  label: Text(
+                    "Important",
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+                padding: EdgeInsets.only(right: 5.0),
                 child: Chip(
-                  label: Text("Attachment"),
+                  label: Text(
+                    "Attachment",
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+                padding: EdgeInsets.only(right: 5.0),
                 child: Chip(
-                  label: Text("Contact"),
+                  label: Text(
+                    "Contact",
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+                padding: EdgeInsets.only(right: 5.0),
                 child: Chip(
-                  label: Text("Unread"),
+                  label: Text(
+                    "Unread",
+                  ),
                 ),
               ),
             ],
