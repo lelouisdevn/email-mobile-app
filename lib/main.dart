@@ -1,6 +1,7 @@
 import 'package:atlanteans_email/ui/email/deleted/deleted_emails.dart';
 import 'package:atlanteans_email/ui/email/email_manager.dart';
 import 'package:atlanteans_email/ui/email/sent_emails_screen.dart';
+// import 'package:atlanteans_email/ui/splashScreen.dart';
 import 'package:atlanteans_email/ui/user/userManager.dart';
 import 'package:flutter/material.dart';
 import 'models/user.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // final user = context.read<User>();
     return MultiProvider(
       providers: [
         Provider(

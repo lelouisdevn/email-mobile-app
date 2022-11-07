@@ -27,9 +27,7 @@ class UserManager with ChangeNotifier {
     return [..._users];
   }
 
-  // Check login information
-  // if this user has matched mail address and password with what we have in our database
-  // then return the uid, else return false;
+  // login for user:
   String logIn(email, password) {
     String state = "false";
     for (var e in _users) {
@@ -40,19 +38,19 @@ class UserManager with ChangeNotifier {
     return state;
   }
 
+  // get id of the last user:
   int getLastUserID() {
     int max = 0;
-
     for (var index = 0; index < _users.length; index++) {
       var temp = int.parse(_users[index].userID);
       if (temp > max) {
         max = temp;
       }
     }
-
     return max;
   }
 
+  // create new user
   String createNewUser(User newUser) {
     newUser.userID = (getLastUserID() + 1).toString();
     _users.add(newUser);

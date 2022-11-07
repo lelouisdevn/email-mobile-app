@@ -112,7 +112,8 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Container(
                       width: 200,
-                      child: const Icon(Icons.check),
+                      // child: const Icon(Icons.check),
+                      child: const Text("Log in", textAlign: TextAlign.center,style: TextStyle(fontSize: 17),),
                     ),
                   ),
                 ),

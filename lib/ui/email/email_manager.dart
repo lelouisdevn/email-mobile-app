@@ -72,7 +72,7 @@ class EmailManager with ChangeNotifier {
     return [..._emails];
   }
 
-  // get the list of inbox emails
+  // get a list of inbox emails
   List inboxEmails(String userEmail) {
     List L = [];
     for (var i = 0; i < _emails.length; i++) {
@@ -88,9 +88,7 @@ class EmailManager with ChangeNotifier {
     return _emails.firstWhere((element) => element.id == id);
   }
 
-  // if the email at index
-  // was sent by the current user and is not deleted yet
-  // then return 1 - else return 0;
+  // get a list of sent emails by emailAddr
   List getSentEmails(String emailAddr) {
     List L = [];
     for (var index = 0; index < _emails.length; index++) {
@@ -124,8 +122,7 @@ class EmailManager with ChangeNotifier {
     notifyListeners();
   }
 
-  // check if the mail at index has property of "false" status
-  // then return 1; else return 0;
+  // get a list of moved-to-trash emails
   List getDeletedEmails(mailaddr) {
     List L = [];
     for (var index = 0; index < _emails.length; index++) {
@@ -138,20 +135,20 @@ class EmailManager with ChangeNotifier {
     return L;
   }
 
-  // standardise data of emails at index before searching
+  // standardise an email before searching
   String standardise(index) {
-    // concatenate all data field into one string
+    // by concatenate all data fields into a single string
     String formattedString = _emails[index].sentFrom +
         _emails[index].sentTo +
         _emails[index].subject +
-        _emails[index].content;
+        _emails[index].content + 
+        _emails[index].at.toString();
 
     // then convert it to lowercase and remove all white spaces;
     return formattedString.toLowerCase().replaceAll(' ', '');
   }
 
-  // if the email at index contains query
-  // add its index to list
+  // search all emails of "thisUser" with search "query":
   List search(thisUser, query) {
     // format the search query and inititalise array named results;
     final formattedQuery = query.toString().toLowerCase().replaceAll(' ', '');
