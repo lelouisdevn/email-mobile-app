@@ -1,3 +1,4 @@
+import 'package:atlanteans_email/ui/auth/signup.dart';
 import 'package:atlanteans_email/ui/email/deleted/deleted_emails.dart';
 import 'package:atlanteans_email/ui/email/email_manager.dart';
 import 'package:atlanteans_email/ui/email/sent_emails_screen.dart';
@@ -47,6 +48,8 @@ class MyApp extends StatelessWidget {
           SentEmails.routeName: (context) => const SentEmails(),
           DeletedEmails.routeName: (context) => const DeletedEmails(),
           Search.routeName: (context) => const Search(),
+          LoginPage.routeName: (context) => const LoginPage(),
+          SignupPage.routeName: (context) => const SignupPage(),
         },
         // onGenerateRoute: (settings) {
         //   if (settings.name == EmailComposition.routeName) {

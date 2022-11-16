@@ -84,7 +84,7 @@ class AppDrawer extends StatelessWidget {
                 status: "false",
                 at: DateTime.now(),
               );
-              Navigator.of(context).push(
+              Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => EmailComposition(newEmail),
                 ),
@@ -93,20 +93,17 @@ class AppDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(
-              Icons.search_outlined,
-              size: 32.0,
-            ),
-            title: const Text(
-              "Filter",
-              style: TextStyle(fontSize: 16),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Search(),
-              ));
-            },
-          ),
+              leading: const Icon(
+                Icons.search_outlined,
+                size: 32.0,
+              ),
+              title: const Text(
+                "Filter",
+                style: TextStyle(fontSize: 16),
+              ),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(Search.routeName);
+              }),
           const Divider(),
           ListTile(
             leading: const Icon(
@@ -118,26 +115,25 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16),
             ),
             onTap: () {
-              // Navigator.of(context).push(MaterialPageRoute(
-              //   builder: (context) => DeletedEmails(),
-              // ));
-              Navigator.of(context).pushReplacementNamed(DeletedEmails.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(DeletedEmails.routeName);
             },
           ),
           const Divider(),
           ListTile(
-              leading: const Icon(
-                Icons.logout,
-                size: 32.0,
-              ),
-              title: Text(user.mailAddr, style: const TextStyle(fontSize: 16)),
-              subtitle: const Text("Log out"),
-              onTap: () {
-                user.userID = '';
-                user.mailAddr = '';
-                user.password = '';
-                Navigator.of(context).pushReplacementNamed("/");
-              }),
+            leading: const Icon(
+              Icons.logout,
+              size: 32.0,
+            ),
+            title: Text(user.mailAddr, style: const TextStyle(fontSize: 16)),
+            subtitle: const Text("Log out"),
+            onTap: () {
+              user.userID = '';
+              user.mailAddr = '';
+              user.password = '';
+              Navigator.of(context).pushReplacementNamed("/");
+            },
+          ),
         ],
       ),
     );

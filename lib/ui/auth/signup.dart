@@ -1,4 +1,5 @@
 import 'package:atlanteans_email/models/user.dart';
+import 'package:atlanteans_email/ui/auth/login.dart';
 import 'package:atlanteans_email/ui/email/overview.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+
+  static const routeName = "/user/signup";
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -127,14 +130,19 @@ class _SignupPageState extends State<SignupPage> {
                   padding: const EdgeInsets.all(20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Already have an account? ",
                         style: TextStyle(fontSize: 15),
                       ),
-                      Text(
-                        "Log in!",
-                        style: TextStyle(color: Colors.blue, fontSize: 15),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+                        },
+                        child: const Text(
+                          "Log in!",
+                          style: TextStyle(color: Colors.blue, fontSize: 15),
+                        ),
                       ),
                     ],
                   ),

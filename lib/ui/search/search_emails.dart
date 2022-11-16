@@ -21,11 +21,11 @@ class _SearchState extends State<Search> {
       appBar: AppBar(
         title: const Text("Filter"),
       ),
-      body: buildSearchBody(context),
+      body: buildSearchBody(),
     );
   }
 
-  Widget buildSearchBody(BuildContext context) {
+  Widget buildSearchBody() {
     final searchController = TextEditingController();
     final user = context.read<User>();
     return Padding(
@@ -54,7 +54,6 @@ class _SearchState extends State<Search> {
                 child: IconButton(
                   onPressed: () async {
                     var query = searchController.text;
-
                     if (query.isNotEmpty) {
                       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
                       await Future.delayed(const Duration(seconds: 1));
@@ -86,6 +85,9 @@ class _SearchState extends State<Search> {
                             ],
                           ),
                         );
+                        await Future.delayed(const Duration(seconds: 2));
+                        ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                        // Scaffold.of
                     }
                   },
                   icon: const Icon(

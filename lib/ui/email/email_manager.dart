@@ -63,6 +63,15 @@ class EmailManager with ChangeNotifier {
       status: "true",
       at: DateTime(2022, 10, 20, 19, 10),
     ),
+    Email(
+      sentFrom: "thaiB1910295@student.ctu.edu.vn",
+      sentTo: "thaingo1202@student.com",
+      content: "CT48402 - Báo cáo",
+      subject:
+          "Báo cáo đồ án học phần CT48402 - Phát triển ứng dụng di động.",
+      status: "true",
+      at: DateTime(2022, 11, 16, 11, 44),
+    ),
   ];
   int get emailCount {
     return _emails.length;

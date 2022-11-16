@@ -103,6 +103,9 @@ class _DeletedEmailsState extends State<DeletedEmails> {
         direction: DismissDirection.endToStart,
         onDismissed: (direction) {
           emails.moveToTrash(index);
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(const SnackBar(content: Text("Restored this email", textAlign: TextAlign.center,)));
         },
         key: ValueKey(emails.emails[index]),
         confirmDismiss: ((direction) {

@@ -20,7 +20,6 @@ class EmailComposition extends StatefulWidget {
 
 class _EmailCompositionState extends State<EmailComposition> {
   final toController = TextEditingController();
-
   final subjectController = TextEditingController();
   final contentController = TextEditingController();
   @override
@@ -70,10 +69,12 @@ class _EmailCompositionState extends State<EmailComposition> {
     // if user forwards an email in "sent emails", it'll forward with the receiver mail addr
     // else it'll foward with the sender mail addr.
     final userEmailAddress = context.read<User>();
-    if (userEmailAddress.mailAddr == widget.email.sentFrom) {
-      toController.text = widget.email.sentTo;
-    } else {
-      toController.text = widget.email.sentFrom;
+    if (widget.email.sentFrom.isNotEmpty) {
+      if (userEmailAddress.mailAddr == widget.email.sentFrom) {
+        toController.text = widget.email.sentTo;
+      } else {
+        toController.text = widget.email.sentFrom;
+      }
     }
     return SingleChildScrollView(
       child: Padding(
@@ -87,9 +88,9 @@ class _EmailCompositionState extends State<EmailComposition> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: CircleAvatar(
-                        backgroundColor:
-                            Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                                .withOpacity(1.0),
+                        backgroundColor: Color(
+                                (math.Random().nextDouble() * 0xFFFFFF).toInt())
+                            .withOpacity(1.0),
                         child: Text(
                           userAvatar,
                           style: const TextStyle(
@@ -135,7 +136,7 @@ class _EmailCompositionState extends State<EmailComposition> {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * (80 / 100),
                         child: TextField(
-                          maxLines: 10,
+                          maxLines: 25,
                           controller: contentController,
                           decoration: const InputDecoration(
                             labelText: "Message",

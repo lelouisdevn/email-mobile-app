@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  static const routeName = "user/signin";
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -48,7 +50,9 @@ class _LoginPageState extends State<LoginPage> {
                     children: const [
                       Text(
                         "One step ahead\nto start your workplace",
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
                       ),
                     ],
                   ),
@@ -112,8 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Container(
                       width: 200,
-                      // child: const Icon(Icons.check),
-                      child: const Text("Log in", textAlign: TextAlign.center,style: TextStyle(fontSize: 17),),
+                      child: const Icon(Icons.check),
                     ),
                   ),
                 ),
